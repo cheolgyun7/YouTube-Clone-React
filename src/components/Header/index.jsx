@@ -1,10 +1,7 @@
-import { Outlet } from 'react-router-dom'
-
 function Header() {
 	return (
 		<>
-			<div>Header</div>
-			<Outlet />
+			<header>Header</header>
 		</>
 	)
 }
