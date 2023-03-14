@@ -22,6 +22,26 @@ export const MenuListWrapper = styled.ul`
 	a {
 		display: block;
 		border-radius: 10px;
+		svg {
+			width: 24px;
+			margin-right: 24px;
+			.activeIcon {
+				fill: none;
+			}
+			.inactiveIcon {
+				fill: #000;
+			}
+		}
+		&.active {
+			svg {
+				.activeIcon {
+					fill: #000;
+				}
+				.inactiveIcon {
+					fill: none;
+				}
+			}
+		}
 		&:hover {
 			font-weight: 700;
 			background-color: rgba(0, 0, 0, 0.1);
