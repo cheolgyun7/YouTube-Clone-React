@@ -1,10 +1,20 @@
 import axios from 'axios'
 
-const api = axios.create({
-	baseURL: 'https://youtube.googleapis.com/youtube/v3',
+export const api = axios.create({
+	baseURL: 'https://www.googleapis.com/youtube/v3',
+
 	params: {
 		key: import.meta.env.VITE_YOUTUBE_API_KEY,
 	},
 })
 
-export default api
+// export const getChannelImg = async (channelId) => {
+// 	const response = await instance.get('/channels', {
+// 		params: {
+// 			part: 'snippet',
+// 			id: channelId,
+// 		},
+// 	});
+
+// 	return response.data.items[0].snippet.thumbnails.default.url;
+// };
