@@ -6,7 +6,7 @@ function SideBar() {
 		<MenuSection>
 			<MenuListWrapper className="mainMenu">
 				<li>
-					<NavLink to="/" exact>
+					<NavLink to="/">
 						<MenuItemWrapper>
 							<svg viewBox="0 0 24 24">
 								<g>
