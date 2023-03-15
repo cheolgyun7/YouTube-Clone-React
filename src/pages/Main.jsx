@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
 import axios from 'axios'
-import VideoInfoCard from '../components/VideoInfoCard'
+// import VideoInfoCard from '../components/VideoInfoCard'
 
 const Main = ({}) => {
 	const [playlist, setPlaylist] = useState([])
@@ -42,7 +42,7 @@ const Main = ({}) => {
 										<div>{i.snippet.localized['title']}</div>
 										<div>{i.snippet.channelId}</div>
 									</div>
-									<VideoInfoCard />
+									{/* <VideoInfoCard /> */}
 								</div>
 							)
 						})}

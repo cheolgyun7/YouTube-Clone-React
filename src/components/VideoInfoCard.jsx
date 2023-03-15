@@ -1,14 +1,14 @@
-import React from 'react'
+// import React from 'react'
 
-const VideoInfoCard = () => {
-	// const [channelImg, setChannelImg] = useState('');
+// const VideoInfoCard = () => {
+// const [channelImg, setChannelImg] = useState('');
 
-	console.log([getChannelImg])
-	// useEffect(() => {
-	//     getChannelImg(channelId).then((response) => setChannelImg(response));
-	// })
+// console.log([getChannelImg])
+// useEffect(() => {
+//     getChannelImg(channelId).then((response) => setChannelImg(response));
+// })
 
-	return <div>VideoInfoCard</div>
-}
+// 	return <div>VideoInfoCard</div>
+// }
 
-export default VideoInfoCard
+// export default VideoInfoCard
