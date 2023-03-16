@@ -38,7 +38,7 @@ export const getCommentData = async (videoId) => {
 		const { data } = await api.get(
 			`/commentThreads?part=snippet&videoId=${videoId}`
 		)
-		localStorage.setItem('currentChannel', JSON.stringify(data.items))
+		localStorage.setItem('currentComment', JSON.stringify(data.items))
 		return data.items
 	} catch (error) {
 		console.error(error)
