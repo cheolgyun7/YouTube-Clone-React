@@ -16,7 +16,7 @@ function App() {
 			<Routes>
 				<Route path="/" element={<PageLayout />}>
 					<Route index element={<Main />} />
-					<Route path="search" element={<Search />} />
+					<Route path="search/:keyword" element={<Search />} />
 					<Route path="video/:id" element={<Video />} />
 					<Route path="*" element={<NotFound />} />
 				</Route>

@@ -1,14 +1,14 @@
-import React, { useState, useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import styled from 'styled-components'
 import axios from 'axios'
 // import VideoInfoCard from '../components/VideoInfoCard'
 
-const Main = ({}) => {
+const Main = () => {
 	const [playlist, setPlaylist] = useState([])
 	useEffect(() => {
 		axios
 			.get(
-				'https://www.googleapis.com/youtube/v3/videos?part=snippet&chart=mostPopular&maxResults=25&key=AIzaSyCZmSMmjRPzSl8o8u6KUIR4Nf8J2v1DJGs'
+				'https://www.googleapis.com/youtube/v3/videos?part=snippet&chart=mostPopular&maxResults=1&key=AIzaSyCZmSMmjRPzSl8o8u6KUIR4Nf8J2v1DJGs'
 			)
 			.then((res) => {
 				console.log(res)

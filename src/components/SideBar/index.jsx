@@ -1,10 +1,14 @@
 import { NavLink } from 'react-router-dom'
+import { useRecoilValue } from 'recoil'
+import { navToggleState } from '../../atom'
 import { MenuSection, MenuListWrapper, MenuItemWrapper } from './style'
 
 function SideBar() {
+	const open = useRecoilValue(navToggleState)
+
 	return (
-		<MenuSection>
-			<MenuListWrapper className="mainMenu">
+		<MenuSection className={open ? '' : 'close'}>
+			<MenuListWrapper>
 				<li>
 					<NavLink to="/">
 						<MenuItemWrapper>
