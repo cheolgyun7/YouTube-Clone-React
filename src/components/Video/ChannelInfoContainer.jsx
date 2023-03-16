@@ -1,18 +1,41 @@
+import { useEffect, useState } from 'react'
 import styled from 'styled-components'
+import { getChannelData } from '../../api/axios'
 
-export default function ChannelInfoContainer({ props }) {
+export default function ChannelInfoContainer({ videoItemData }) {
+	const channelData = JSON.parse(window.localStorage.getItem('currentChannel'))
+	const [channelItemData, setChannelItemData] = useState(...channelData)
+	if (!channelData) {
+		useEffect(() => {
+			const fetchData = async () => {
+				const channelId = videoItemData.snippet.channelId
+				console.log(channelId)
+				setChannelItemData(...(await getChannelData(channelId)))
+				console.log(channelItemData)
+			}
+			fetchData()
+		}, [])
+	}
+
 	return (
 		<Container>
-			<ChannelInfo>
-				<img src={props.snippet.thumbnails.default.url} alt="thumbnail" />
-				<ChannelInfoText>
-					<div className="title">{props.snippet.title}</div>
-					<div className="subscriberCount">
-						구독자 {props.statistics.subscriberCount}명
-					</div>
-				</ChannelInfoText>
-				<button>구독</button>
-			</ChannelInfo>
+			{!channelItemData ? (
+				<h1>Loading...</h1>
+			) : (
+				<ChannelInfo>
+					<img
+						src={channelItemData.snippet.thumbnails.default.url}
+						alt="thumbnail"
+					/>
+					<ChannelInfoText>
+						<div className="title">{channelItemData.snippet.title}</div>
+						<div className="subscriberCount">
+							구독자 {channelItemData.statistics.subscriberCount}명
+						</div>
+					</ChannelInfoText>
+					<button>구독</button>
+				</ChannelInfo>
+			)}
 			<OptionBtnContainer>
 				<button>좋아요 버튼</button>
 				<button>공유</button>
@@ -27,12 +50,20 @@ const Container = styled.div`
 	display: flex;
 	justify-content: space-between;
 	gap: 4px;
+	button {
+		border: 0;
+		padding: 0 16px;
+		height: 36px;
+		font-size: 14px;
+		line-height: 36px;
+		border-radius: 18px;
+		background-color: #f2f2f2;
+	}
 `
 const ChannelInfo = styled.div`
 	display: flex;
 	align-items: center;
 	gap: 4px;
-	/* justify-content: space-evenly; */
 	img {
 		width: 40px;
 		heigh: 40px;
