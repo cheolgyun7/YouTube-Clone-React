@@ -1,7 +1,6 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
-import { useRecoilValue } from 'recoil'
-import { videoQuery, channelQuery, commentQuery } from '../atom'
+import { getVideoData } from '../api/axios'
 import YouTube from 'react-youtube'
 import styled from 'styled-components'
 import ChannelInfoContainer from '../components/Video/ChannelInfoContainer'
@@ -11,27 +10,14 @@ import RelativedVideos from '../components/RelatedVieos'
 
 function Video() {
 	const { id: videoId } = useParams()
-	const videoData = JSON.parse(window.localStorage.getItem('currentVideo'))
-	const [videoItemData, setVideoItemData] = useState(...videoData)
-	const channelData = JSON.parse(window.localStorage.getItem('currentChannel'))
-	const [channelItemData, setChannelItemData] = useState(...channelData)
+	const [videoItemData, setVideoItemData] = useState()
 
-	if (!videoData) {
-		console.log(videoData)
-		setVideoItemData(...useRecoilValue(videoQuery(videoId)))
-		window.localStorage.setItem('currentVideo', JSON.stringify(videoItemData))
-
-		// 채널 정보 가져오는 코드
-		const channelId = videoItemData.snippet.channelId
-		setChannelItemData(...useRecoilValue(channelQuery(channelId)))
-		window.localStorage.setItem(
-			'currentChannel',
-			JSON.stringify(channelItemData)
-		)
-		// 댓글 정보
-		const comment = useRecoilValue(commentQuery(videoId))
-		console.log(comment)
-	}
+	useEffect(() => {
+		const fetchData = async () => {
+			setVideoItemData(...(await getVideoData(videoId)))
+		}
+		fetchData()
+	}, [videoId])
 
 	return (
 		<Layout>
@@ -46,13 +32,20 @@ function Video() {
 						},
 					}}
 				/>
-				<h2>{videoItemData?.snippet.title}</h2>
-				<ChannelInfoContainer props={channelItemData} />
-				<VideoInfo props={videoItemData} />
-				<CommentContainer />
+				{!videoItemData ? (
+					<h1>Loading...</h1>
+				) : (
+					<h2>{videoItemData.snippet.title}</h2>
+				)}
+				<ChannelInfoContainer videoItemData={videoItemData} />
+				{!videoItemData ? (
+					<h1>Loading...</h1>
+				) : (
+					<VideoInfo props={videoItemData} />
+				)}
+				<CommentContainer videoId={videoId} />
 			</LeftPane>
 			<RightPane>
-				Video
 				<RelativedVideos />
 			</RightPane>
 		</Layout>
@@ -61,16 +54,6 @@ function Video() {
 
 const Layout = styled.div`
 	display: flex;
-	button {
-		border: 0;
-		padding: 0 16px;
-		height: 36px;
-		font-size: 14px;
-		line-height: 36px;
-		border-radius: 18px;
-		background-color: #f2f2f2;
-		cursor: pointer;
-	}
 `
 const LeftPane = styled.div`
 	min-width: 427px;
@@ -85,7 +68,6 @@ const LeftPane = styled.div`
 	}
 `
 const StyledYouTube = styled(YouTube)`
-	/* width: 100%; */
 	iframe {
 		padding-bottom: 56.25%;
 		box-sizing: content-box;
