@@ -3,19 +3,15 @@ import styled from 'styled-components'
 import { getChannelData } from '../../api/axios'
 
 export default function ChannelInfoContainer({ videoItemData }) {
-	const channelData = JSON.parse(window.localStorage.getItem('currentChannel'))
-	const [channelItemData, setChannelItemData] = useState(...channelData)
-	if (!channelData) {
-		useEffect(() => {
-			const fetchData = async () => {
-				const channelId = videoItemData.snippet.channelId
-				console.log(channelId)
-				setChannelItemData(...(await getChannelData(channelId)))
-				console.log(channelItemData)
-			}
-			fetchData()
-		}, [])
-	}
+	const [channelItemData, setChannelItemData] = useState()
+
+	useEffect(() => {
+		const fetchData = async () => {
+			const channelId = videoItemData.snippet?.channelId
+			setChannelItemData(...(await getChannelData(channelId)))
+		}
+		fetchData()
+	}, [videoItemData])
 
 	return (
 		<Container>
