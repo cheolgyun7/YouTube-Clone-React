@@ -1,44 +1,57 @@
 import styled from 'styled-components'
 import { RiThumbUpLine, RiThumbDownLine } from 'react-icons/ri'
+import { useEffect, useState } from 'react'
+import { getCommentData } from '../../api/axios'
 
-export default function CommentContainer({ props }) {
+export default function CommentContainer({ videoId }) {
+	const [commentListData, setCommentListData] = useState()
+	useEffect(() => {
+		const fetchData = async () => {
+			setCommentListData(await getCommentData(videoId))
+		}
+		fetchData()
+	}, [videoId])
 	return (
 		<Container>
-			{props.map((i, index) => {
-				const {
-					authorProfileImageUrl,
-					authorChannelUrl,
-					authorDisplayName,
-					likeCount,
-					publishedAt,
-					textOriginal,
-				} = i.snippet.topLevelComment.snippet
-				return (
-					<CommentItem key={index}>
-						<ImageContainer>
-							<a href={authorChannelUrl}>
-								<img src={authorProfileImageUrl} alt="profile" />
-							</a>
-						</ImageContainer>
-						<TextConainer>
-							<NameInfo>
-								<span>{authorDisplayName}</span>
-								<span>{publishedAt}</span>
-							</NameInfo>
-							<p>{textOriginal}</p>
-							<ButtonContainer>
-								<button>
-									<RiThumbUpLine />
-								</button>
-								<span>{likeCount}</span>
-								<button>
-									<RiThumbDownLine />
-								</button>
-							</ButtonContainer>
-						</TextConainer>
-					</CommentItem>
-				)
-			})}
+			{!commentListData ? (
+				<h1>Loading...</h1>
+			) : (
+				commentListData.map((i, index) => {
+					const {
+						authorProfileImageUrl,
+						authorChannelUrl,
+						authorDisplayName,
+						likeCount,
+						publishedAt,
+						textOriginal,
+					} = i.snippet.topLevelComment.snippet
+					return (
+						<CommentItem key={index}>
+							<ImageContainer>
+								<a href={authorChannelUrl}>
+									<img src={authorProfileImageUrl} alt="profile" />
+								</a>
+							</ImageContainer>
+							<TextConainer>
+								<NameInfo>
+									<span>{authorDisplayName}</span>
+									<span>{publishedAt}</span>
+								</NameInfo>
+								<p>{textOriginal}</p>
+								<ButtonContainer>
+									<button>
+										<RiThumbUpLine />
+									</button>
+									<span>{likeCount}</span>
+									<button>
+										<RiThumbDownLine />
+									</button>
+								</ButtonContainer>
+							</TextConainer>
+						</CommentItem>
+					)
+				})
+			)}
 		</Container>
 	)
 }
