@@ -3,7 +3,7 @@ import logo from '../../assets/logo.png'
 import { useRecoilState } from 'recoil'
 import { navToggleState } from '../../atom'
 import { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, Link } from 'react-router-dom'
 
 function Header() {
 	const [isOpen, setIsOpen] = useRecoilState(navToggleState) //eslint-disable-line no-unused-vars
@@ -20,7 +20,7 @@ function Header() {
 		if (keyword === '') {
 			null
 		} else {
-			navigate(`/search?keyword=${keyword}`)
+			navigate(`/search?q=${keyword}`)
 			setKeyword('')
 		}
 	}
@@ -37,7 +37,9 @@ function Header() {
 						<path d="M21,6H3V5h18V6z M21,11H3v1h18V11z M21,17H3v1h18V17z"></path>
 					</g>
 				</svg>
-				<img src={logo} alt="YouTube" />
+				<Link to="/">
+					<img src={logo} alt="YouTube" />
+				</Link>
 			</HeaderIconBox>
 			<SearchBox>
 				<form onSubmit={onSearch} className="searchBar centerAlign">

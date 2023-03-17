@@ -8,7 +8,7 @@ const Main = () => {
 	useEffect(() => {
 		axios
 			.get(
-				'https://www.googleapis.com/youtube/v3/videos?part=snippet&chart=mostPopular&maxResults=1&key=AIzaSyCZmSMmjRPzSl8o8u6KUIR4Nf8J2v1DJGs'
+				'https://www.googleapis.com/youtube/v3/videos?part=snippet&chart=mostPopular&maxResults=25&key=AIzaSyCZmSMmjRPzSl8o8u6KUIR4Nf8J2v1DJGs'
 			)
 			.then((res) => {
 				console.log(res)
