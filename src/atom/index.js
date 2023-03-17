@@ -65,8 +65,3 @@ export const relatedToVideoQuery = selectorFamily({
 		}
 	},
 })
-
-export const navToggleState = atom({
-	key: 'navToggleState',
-	default: true,
-})

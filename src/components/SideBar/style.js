@@ -2,21 +2,17 @@ import styled from 'styled-components'
 
 export const MenuSection = styled.div`
 	position: fixed;
-	z-index: 99;
+	z-index: 999;
 	top: 56px;
 	left: 0;
 	width: 240px;
 	height: 100vh;
 	padding: 0 12px;
-	background-color: #fff;
 	.copyRight {
 		padding: 15px 0;
 		color: rgba(0, 0, 0, 0.5);
 		font-size: 0.8rem;
 		line-height: 1.3rem;
-	}
-	&.close {
-		display: none;
 	}
 `
 

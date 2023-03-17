@@ -40,6 +40,7 @@ const RelativedVideos = (videoId) => {
 	}, [])
 	return (
 		<>
+			{/* {videos.map((video)=>console.log(video.id.videoId, video.snippet.title, video.snippet.channelTitle, video.snippet.thumbnails.medium.url))} */}
 			{videos.map((video) => (
 				<RelatedVideoWrapper key={video.id.videoId}>
 					<Link to={`/video/${video.id.videoId}`}>
